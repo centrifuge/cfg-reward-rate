@@ -5,7 +5,7 @@ import "tinlake-auth/auth.sol";
 
 contract CfgRewardRate is Auth {
 
-    uint256 investorRewardRate;
+    uint256 public investorRewardRate;
     uint256 aoRewardRate;
 
     event RateUpdate(uint256 newInvestorRewardRate, uint256 newAoRewardRate);
