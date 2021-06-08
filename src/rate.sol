@@ -8,7 +8,7 @@ contract CfgRewardRate is Auth {
     uint256 investorRewardRate;
     uint256 aoRewardRate;
 
-    event RatesUpdated(uint256 newInvestorRewardRate, uint256 newAoRewardRate);
+    event RateUpdate(uint256 newInvestorRewardRate, uint256 newAoRewardRate);
 
     constructor() {
         wards[msg.sender] = 1;
@@ -22,7 +22,7 @@ contract CfgRewardRate is Auth {
     function set(uint256 investorRewardRate_, uint256 aoRewardRate_) public auth {
         investorRewardRate = investorRewardRate_;
         aoRewardRate = aoRewardRate_;
-        emit RatesUpdated(investorRewardRate, aoRewardRate);
+        emit RateUpdate(investorRewardRate, aoRewardRate);
     }
 
 }
