@@ -19,83 +19,35 @@ import "ds-test/test.sol";
 import "./value.sol";
 
 contract TestUser {
-    function doPoke(CfgRewardRate value, uint256 wut, uint256 wutAO) public {
-        value.poke(wut, wutAO);
-    }
-
-    function doVoid(CfgRewardRate value) public {
-        value.void();
+    function doSet(CfgRewardRate value, uint256 irr, uint256 aorr) public {
+        value.set(irr, aorr);
     }
 }
 
 contract CfgRewardRateTest is DSTest {
-    CfgRewardRate value;
+    CfgRewardRate rewardRate;
     uint256 invRR = 0.0042 * 10**27;
     uint256 aoRR = 0.0015 * 10**27;
     TestUser user;
 
     function setUp() public {
-        value = new CfgRewardRate();
+        rewardRate = new CfgRewardRate();
         user = new TestUser();
     }
 
-    function testPoke() public {
-        value.poke(invRR, aoRR);
+    function testSet() public {
+        rewardRate.set(invRR, aoRR);
     }
 
-    function testFailPoke() public {
-        user.doPoke(value, invRR, aoRR);
+    function testFailSet() public {
+        user.doSet(rewardRate, invRR, aoRR);
     }
 
-    function testHas() public {
-        uint256 wut; bool has;
-        (wut, has,,) = value.peek();
-        assertTrue(!has);
-        value.poke(invRR, aoRR);
-        (wut, has,,) = value.peek();
-        assertTrue(has);
-    }
-
-    function testPeek() public {
-        value.poke(invRR, aoRR);
-        uint256 wut; bool has;
-        (wut, has,,) = value.peek();
+    function testGet() public {
+        rewardRate.set(invRR, aoRR);
+        uint256 wut;
+        (wut,) = rewardRate.get();
         assertEq(invRR, wut);
     }
 
-    function testRead() public {
-        value.poke(invRR, aoRR);
-        uint256 wut;
-        (wut,) = value.read();
-        assertEq(invRR, wut);
-    }
-
-    function testFailUninitializedRead() public view {
-        uint256 wut;
-        (wut,) = value.read();
-        wut;
-    }
-
-    function testFailUnsetRead() public {
-        uint256 wut;
-        value.poke(invRR, aoRR);
-        value.void();
-        (wut,) = value.read();
-        wut;
-    }
-
-    function testVoid() public {
-        value.poke(invRR, aoRR);
-        uint256 wut; bool has;
-        (wut, has,,) = value.peek();
-        assertTrue(has);
-        value.void();
-        (wut, has,,) = value.peek();
-        assertTrue(!has);
-    }
-
-    function testFailVoid() public {
-        value.poke(invRR, aoRR);
-        user.doVoid(value);
-    }
 }
