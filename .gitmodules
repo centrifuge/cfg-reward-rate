@@ -4,3 +4,6 @@
 [submodule "lib/ds-thing"]
 	path = lib/ds-thing
 	url = https://github.com/dapphub/ds-thing
+[submodule "lib/tinlake-auth"]
+	path = lib/tinlake-auth
+	url = https://github.com/centrifuge/tinlake-auth
