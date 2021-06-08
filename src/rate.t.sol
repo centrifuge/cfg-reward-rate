@@ -2,7 +2,7 @@
 pragma solidity >=0.4.23;
 
 import "ds-test/test.sol";
-import "./value.sol";
+import "./rate.sol";
 
 contract TestUser {
     function doSet(CfgRewardRate value, uint256 investorRewardRate_, uint256 aoRewardRate_) public {
